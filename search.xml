@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>/2025/10/03/high-precision-addition/</url>
-    <content><![CDATA[高精度加法详解引言在编程中，处理大数运算时，标准整数类型（如int或long long）可能无法满足需求，因为它们的取值范围有限。高精度加法是一种算法，允许我们处理任意长度的整数相加，通过将数字表示为字符串或数组，并模拟手工加法的过程来实现。本文将介绍高精度加法的基本原理，并通过C++代码示例详细解释其实现。
-为什么需要高精度加法？标准整数类型在C++中通常有固定的位数（如int为32位），最大可表示的值约为20亿。当数字超过这个范围时，就会发生溢出，导致错误结果。高精度加法通过将数字分解为单个数字（例如，每位数字存储在数组中），从低位到高位逐位相加，并处理进位，从而支持任意大的数字。这种方法常用于竞赛编程、密码学和大数计算中。
-代码实现以下C++代码实现了高精度加法。代码风格遵循要求：操作符前后不加空格，逗号后不加空格，分号前不加空格，布局紧凑。代码首先读入两个字符串形式的数字，然后将它们反转存储到数组中，从低位到高位相加，最后处理进位并输出结果。
-#include &lt;iostream&gt;#include &lt;string&gt;using namespace std;int a[10001],b[10001],c[10001];int main()&#123;	string s1,s2;cin&gt;&gt;s1&gt;&gt;s2;	int len1=s1.size();	int len2=s2.size();	int lenm=max(len1,len2);	for(int i=0;i&lt;len1;i++) a[i]=s1[len1-i-1]-&#x27;0&#x27;;	for(int i=0;i&lt;len2;i++) b[i]=s2[len2-i-1]-&#x27;0&#x27;;	for(int i=0;i&lt;lenm;i++)&#123;		c[i]+=a[i]+b[i];		c[i+1]=c[i]/10;		c[i]%=10;	&#125;	if(c[lenm]) lenm++;	for(int i=lenm-1;i&gt;=0;i--) cout&lt;&lt;c[i];	return 0;&#125;
-
-代码解释
-头文件和数组声明：代码包含iostream和string头文件，用于输入输出和字符串处理。数组a、b和c分别存储两个输入数字和结果，每个数组大小为10001，以支持最多10000位的数字。
-输入处理：main函数读入两个字符串s1和s2，表示要相加的数字。计算它们的长度len1和len2，并确定最大长度lenm。
-数字反转存储：通过循环将字符串中的字符转换为整数，并反向存储到数组a和b中。这样，数组索引0对应数字的最低位，便于从低位开始相加。例如，数字”123”存储为a[0]&#x3D;3, a[1]&#x3D;2, a[2]&#x3D;1。
-逐位相加和进位处理：循环从0到lenm-1，将a[i]和b[i]相加到c[i]，并计算进位（c[i]/10）存储到c[i+1]，当前位取模10（c[i]%=10）。这模拟了手工加法的过程。
-处理最高位进位：如果相加后最高位有进位（即c[lenm]不为0），则增加结果长度lenm。
-输出结果：从最高位到最低位反向输出数组c，得到正确的数字顺序。
-
-总结高精度加法是一种基础且重要的算法，通过数组存储和逐位处理，可以高效地实现大数相加。本文的代码简洁高效，适合初学者理解和应用。实际使用中，可以进一步优化，例如动态分配数组或处理负数，但核心逻辑不变。掌握高精度加法有助于解决更复杂的数学问题。
-]]></content>
-  </entry>
-  <entry>
     <title>Hello World</title>
     <url>/2025/05/23/hello-world/</url>
     <content><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
@@ -37,6 +18,25 @@ Deploy to remote sites$ hexo deploy
 More info: Deployment
 
 
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2025/10/03/high-precision-addition/</url>
+    <content><![CDATA[高精度加法详解引言在编程中，处理大数运算时，标准整数类型（如int或long long）可能无法满足需求，因为它们的取值范围有限。高精度加法是一种算法，允许我们处理任意长度的整数相加，通过将数字表示为字符串或数组，并模拟手工加法的过程来实现。本文将介绍高精度加法的基本原理，并通过C++代码示例详细解释其实现。
+为什么需要高精度加法？标准整数类型在C++中通常有固定的位数（如int为32位），最大可表示的值约为20亿。当数字超过这个范围时，就会发生溢出，导致错误结果。高精度加法通过将数字分解为单个数字（例如，每位数字存储在数组中），从低位到高位逐位相加，并处理进位，从而支持任意大的数字。这种方法常用于竞赛编程、密码学和大数计算中。
+代码实现以下C++代码实现了高精度加法。代码风格遵循要求：操作符前后不加空格，逗号后不加空格，分号前不加空格，布局紧凑。代码首先读入两个字符串形式的数字，然后将它们反转存储到数组中，从低位到高位相加，最后处理进位并输出结果。
+#include &lt;iostream&gt;#include &lt;string&gt;using namespace std;int a[10001],b[10001],c[10001];int main()&#123;	string s1,s2;cin&gt;&gt;s1&gt;&gt;s2;	int len1=s1.size();	int len2=s2.size();	int lenm=max(len1,len2);	for(int i=0;i&lt;len1;i++) a[i]=s1[len1-i-1]-&#x27;0&#x27;;	for(int i=0;i&lt;len2;i++) b[i]=s2[len2-i-1]-&#x27;0&#x27;;	for(int i=0;i&lt;lenm;i++)&#123;		c[i]+=a[i]+b[i];		c[i+1]=c[i]/10;		c[i]%=10;	&#125;	if(c[lenm]) lenm++;	for(int i=lenm-1;i&gt;=0;i--) cout&lt;&lt;c[i];	return 0;&#125;
+
+代码解释
+头文件和数组声明：代码包含iostream和string头文件，用于输入输出和字符串处理。数组a、b和c分别存储两个输入数字和结果，每个数组大小为10001，以支持最多10000位的数字。
+输入处理：main函数读入两个字符串s1和s2，表示要相加的数字。计算它们的长度len1和len2，并确定最大长度lenm。
+数字反转存储：通过循环将字符串中的字符转换为整数，并反向存储到数组a和b中。这样，数组索引0对应数字的最低位，便于从低位开始相加。例如，数字”123”存储为a[0]&#x3D;3, a[1]&#x3D;2, a[2]&#x3D;1。
+逐位相加和进位处理：循环从0到lenm-1，将a[i]和b[i]相加到c[i]，并计算进位（c[i]/10）存储到c[i+1]，当前位取模10（c[i]%=10）。这模拟了手工加法的过程。
+处理最高位进位：如果相加后最高位有进位（即c[lenm]不为0），则增加结果长度lenm。
+输出结果：从最高位到最低位反向输出数组c，得到正确的数字顺序。
+
+总结高精度加法是一种基础且重要的算法，通过数组存储和逐位处理，可以高效地实现大数相加。本文的代码简洁高效，适合初学者理解和应用。实际使用中，可以进一步优化，例如动态分配数组或处理负数，但核心逻辑不变。掌握高精度加法有助于解决更复杂的数学问题。
 ]]></content>
   </entry>
 </search>
