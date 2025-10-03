@@ -189,92 +189,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://oliver234a.github.io/2025/10/03/high-precision-addition/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Oliver_Zhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My_Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/10/03/high-precision-addition/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-10-03 21:14:47 / 修改时间：21:14:22" itemprop="dateCreated datePublished" datetime="2025-10-03T21:14:47+08:00">2025-10-03</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="高精度加法详解"><a href="#高精度加法详解" class="headerlink" title="高精度加法详解"></a>高精度加法详解</h1><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在编程中，处理大数运算时，标准整数类型（如int或long long）可能无法满足需求，因为它们的取值范围有限。高精度加法是一种算法，允许我们处理任意长度的整数相加，通过将数字表示为字符串或数组，并模拟手工加法的过程来实现。本文将介绍高精度加法的基本原理，并通过C++代码示例详细解释其实现。</p>
-<h2 id="为什么需要高精度加法？"><a href="#为什么需要高精度加法？" class="headerlink" title="为什么需要高精度加法？"></a>为什么需要高精度加法？</h2><p>标准整数类型在C++中通常有固定的位数（如int为32位），最大可表示的值约为20亿。当数字超过这个范围时，就会发生溢出，导致错误结果。高精度加法通过将数字分解为单个数字（例如，每位数字存储在数组中），从低位到高位逐位相加，并处理进位，从而支持任意大的数字。这种方法常用于竞赛编程、密码学和大数计算中。</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>以下C++代码实现了高精度加法。代码风格遵循要求：操作符前后不加空格，逗号后不加空格，分号前不加空格，布局紧凑。代码首先读入两个字符串形式的数字，然后将它们反转存储到数组中，从低位到高位相加，最后处理进位并输出结果。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int a[10001],b[10001],c[10001];</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	string s1,s2;cin&gt;&gt;s1&gt;&gt;s2;</span><br><span class="line">	int len1=s1.size();</span><br><span class="line">	int len2=s2.size();</span><br><span class="line">	int lenm=max(len1,len2);</span><br><span class="line">	for(int i=0;i&lt;len1;i++) a[i]=s1[len1-i-1]-&#x27;0&#x27;;</span><br><span class="line">	for(int i=0;i&lt;len2;i++) b[i]=s2[len2-i-1]-&#x27;0&#x27;;</span><br><span class="line">	for(int i=0;i&lt;lenm;i++)&#123;</span><br><span class="line">		c[i]+=a[i]+b[i];</span><br><span class="line">		c[i+1]=c[i]/10;</span><br><span class="line">		c[i]%=10;</span><br><span class="line">	&#125;</span><br><span class="line">	if(c[lenm]) lenm++;</span><br><span class="line">	for(int i=lenm-1;i&gt;=0;i--) cout&lt;&lt;c[i];</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="代码解释"><a href="#代码解释" class="headerlink" title="代码解释"></a>代码解释</h2><ol>
-<li><strong>头文件和数组声明</strong>：代码包含<code>iostream</code>和<code>string</code>头文件，用于输入输出和字符串处理。数组<code>a</code>、<code>b</code>和<code>c</code>分别存储两个输入数字和结果，每个数组大小为10001，以支持最多10000位的数字。</li>
-<li><strong>输入处理</strong>：<code>main</code>函数读入两个字符串<code>s1</code>和<code>s2</code>，表示要相加的数字。计算它们的长度<code>len1</code>和<code>len2</code>，并确定最大长度<code>lenm</code>。</li>
-<li><strong>数字反转存储</strong>：通过循环将字符串中的字符转换为整数，并反向存储到数组<code>a</code>和<code>b</code>中。这样，数组索引0对应数字的最低位，便于从低位开始相加。例如，数字”123”存储为a[0]&#x3D;3, a[1]&#x3D;2, a[2]&#x3D;1。</li>
-<li><strong>逐位相加和进位处理</strong>：循环从0到<code>lenm-1</code>，将<code>a[i]</code>和<code>b[i]</code>相加到<code>c[i]</code>，并计算进位（<code>c[i]/10</code>）存储到<code>c[i+1]</code>，当前位取模10（<code>c[i]%=10</code>）。这模拟了手工加法的过程。</li>
-<li><strong>处理最高位进位</strong>：如果相加后最高位有进位（即<code>c[lenm]</code>不为0），则增加结果长度<code>lenm</code>。</li>
-<li><strong>输出结果</strong>：从最高位到最低位反向输出数组<code>c</code>，得到正确的数字顺序。</li>
-</ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>高精度加法是一种基础且重要的算法，通过数组存储和逐位处理，可以高效地实现大数相加。本文的代码简洁高效，适合初学者理解和应用。实际使用中，可以进一步优化，例如动态分配数组或处理负数，但核心逻辑不变。掌握高精度加法有助于解决更复杂的数学问题。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://oliver234a.github.io/2025/05/23/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -436,7 +350,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">1</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -473,12 +387,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">2k</span>
+    <span title="站点总字数">0k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3 分钟</span>
+    <span title="站点阅读时长">1 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
